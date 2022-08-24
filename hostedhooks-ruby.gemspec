@@ -2,7 +2,7 @@ require_relative 'lib/hostedhooks/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "hostedhooks"
-  spec.version       = Hostedhooks::Ruby::VERSION
+  spec.version       = HostedHooks::Ruby::VERSION
   spec.authors       = ["Ian Grabill"]
   spec.email         = ["ian@hostedhooks.com"]
 
