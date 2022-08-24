@@ -12,7 +12,7 @@ module HostedHooks
       get_response("/apps")
     end
 
-    def create_app(uuid, payload = {})
+    def create_app(payload = {})
       post_response "/apps", payload.slice(:name)
     end
 
@@ -22,32 +22,55 @@ module HostedHooks
 
     # Subscriptions
 
-    # # Templates
-    #
-    # def get_template(uid)
-    # 	get_response "/templates/#{uid}"
-    # end
-    #
-    # def update_template(uid, payload = {})
-    # 	patch_response "/templates/#{uid}", payload.slice(:name, :metadata, :tags)
-    # end
-    #
-    # def list_templates(params = {:page => 1, :tag => nil, :limit => 25, :name => nil})
-    # 	get_response "/templates?#{URI.encode_www_form(params.slice(:page, :tag, :limit, :name))}"
-    # end
-    #
-    # # Template Sets
-    #
-    # def get_template_set(uid)
-    # 	get_response "/template_sets/#{uid}"
-    # end
-    #
-    # def list_template_sets(params = {:page => 1})
-    # 	get_response "/template_sets?#{URI.encode_www_form(params.slice(:page))}"
-    # end
+    def get_subscription(uuid)
+      get_response "/subscriptions/#{uuid}"
+    end
 
+    def list_subscriptions(app_uuid)
+      get_response("/apps/#{app_uuid}/subscriptions")
+    end
 
+    def create_subscription(app_uuid, payload = {})
+      post_response "/apps/#{app_uuid}/subscriptions", payload.slice(:name)
+    end
 
+    # Endpoints
+
+    def get_endpoint(app_uuid, endpoint_uuid)
+      get_response "/apps/#{app_uuid}/endpoints/#{endpoint_uuid}"
+    end
+
+    def list_endpoints(app_uuid)
+      get_response("/apps/#{app_uuid}/endpoints")
+    end
+
+    def create_subscription(subscription_uuid, payload = {})
+      post_response "/subscriptions/#{subscription_uuid}/endpoints", payload.slice(:url, :enabled_events, :version, :status, :description)
+    end
+
+    def update_app(subscription_uuid, endpoint_uuid, payload = {})
+      patch_response "/subscriptions/#{subscription_uuid}/endpoints/#{endpoint_uuid}", payload.slice(:url, :enabled_events, :version, :status, :description)
+    end
+
+    # Webhook Events
+
+    def list_webhook_events(app_uuid)
+      get_response("/apps/#{app_uuid}/webhook_events")
+    end
+
+    # Messages
+
+    def create_app_message(app_uuid, payload = {})
+      post_response "/apps/#{app_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id)
+    end
+
+    def create_subscription_message(subscription_uuid, payload = {})
+      post_response "/subscriptions/#{subscription_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id)
+    end
+
+    def create_endpoint_message(subscription_uuid, endpoint_uuid, payload = {})
+      post_response "/subscriptions/#{subscription_uuid}/endpoints/#{endpoint_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id)
+    end
 
     private
 

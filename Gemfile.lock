@@ -1,0 +1,27 @@
+PATH
+  remote: .
+  specs:
+    hostedhooks (0.1.0)
+      httparty
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    httparty (0.18.1)
+      mime-types (~> 3.0)
+      multi_xml (>= 0.5.2)
+    mime-types (3.3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2021.0225)
+    multi_xml (0.6.0)
+    rake (12.3.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  hostedhooks!
+  rake (~> 12.0)
+
+BUNDLED WITH
+   2.1.4
