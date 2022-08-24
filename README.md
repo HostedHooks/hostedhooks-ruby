@@ -1,6 +1,6 @@
 # HostedHooks Ruby Gem
 
-A Ruby library for [HostedHooks](https://www.hostedhooks.com) - a Webhooks as a Service Platform
+A Ruby library for [HostedHooks](https://www.hostedhooks.com),  a Webhooks as a Service Platform
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ### Authentication
 
-Initialize the gem with your API key [found here](https://www.hostedhooks.com/settings/account).
+Initialize the gem with your API key that is [found here](https://www.hostedhooks.com/settings/account)
 
      client = HostedHooks::Client.new('API_KEY')
 
@@ -58,7 +58,9 @@ Initialize the gem with your API key [found here](https://www.hostedhooks.com/se
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hostedhooks-ruby. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/HostedHooks/hostedhooks-ruby/blob/master/CODE_OF_CONDUCT.md).
 
-
 ## Code of Conduct
 
 Everyone interacting in the Hostedhooks::Ruby project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/HostedHooks/hostedhooks-ruby/blob/master/CODE_OF_CONDUCT.md).
+
+## License
+The gem is available as open source under the terms of the MIT License.

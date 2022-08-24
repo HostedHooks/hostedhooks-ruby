@@ -44,11 +44,11 @@ module HostedHooks
       get_response("/apps/#{app_uuid}/endpoints")
     end
 
-    def create_subscription(subscription_uuid, payload = {})
+    def create_endpoint(subscription_uuid, payload = {})
       post_response "/subscriptions/#{subscription_uuid}/endpoints", payload.slice(:url, :enabled_events, :version, :status, :description)
     end
 
-    def update_app(subscription_uuid, endpoint_uuid, payload = {})
+    def update_endpoint(subscription_uuid, endpoint_uuid, payload = {})
       patch_response "/subscriptions/#{subscription_uuid}/endpoints/#{endpoint_uuid}", payload.slice(:url, :enabled_events, :version, :status, :description)
     end
 
