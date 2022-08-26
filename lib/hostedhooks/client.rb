@@ -61,15 +61,15 @@ module HostedHooks
     # Messages
 
     def create_app_message(app_uuid, payload = {})
-      post_response "/apps/#{app_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id)
+      post_response "/apps/#{app_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id, :override_payload)
     end
 
     def create_subscription_message(subscription_uuid, payload = {})
-      post_response "/subscriptions/#{subscription_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id)
+      post_response "/subscriptions/#{subscription_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id, :override_payload)
     end
 
     def create_endpoint_message(subscription_uuid, endpoint_uuid, payload = {})
-      post_response "/subscriptions/#{subscription_uuid}/endpoints/#{endpoint_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id)
+      post_response "/subscriptions/#{subscription_uuid}/endpoints/#{endpoint_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id, :override_payload)
     end
 
     private
