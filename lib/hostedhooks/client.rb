@@ -8,8 +8,8 @@ module HostedHooks
 
     # Apps
 
-    def list_apps
-      get_response("/apps")
+    def list_apps(params = {})
+      get_response("/apps", params.slice(:page, :per_page, :offset))
     end
 
     def create_app(payload = {})
@@ -22,12 +22,12 @@ module HostedHooks
 
     # Subscriptions
 
-    def get_subscription(uuid)
-      get_response "/subscriptions/#{uuid}"
+    def get_subscription(uuid, params = {})
+      get_response("/subscriptions/#{uuid}", params.slice(:page, :per_page, :offset))
     end
 
-    def list_subscriptions(app_uuid)
-      get_response("/apps/#{app_uuid}/subscriptions")
+    def list_subscriptions(app_uuid, params = {})
+      get_response("/apps/#{app_uuid}/subscriptions", params.slice(:page, :per_page, :offset))
     end
 
     def create_subscription(app_uuid, payload = {})
@@ -36,12 +36,12 @@ module HostedHooks
 
     # Endpoints
 
-    def get_endpoint(app_uuid, endpoint_uuid)
-      get_response "/apps/#{app_uuid}/endpoints/#{endpoint_uuid}"
+    def get_endpoint(app_uuid, endpoint_uuid, params = {})
+      get_response("/apps/#{app_uuid}/endpoints/#{endpoint_uuid}", params.slice(:page, :per_page, :offset))
     end
 
-    def list_endpoints(app_uuid)
-      get_response("/apps/#{app_uuid}/endpoints")
+    def list_endpoints(app_uuid, params = {})
+      get_response("/apps/#{app_uuid}/endpoints", params.slice(:page, :per_page, :offset))
     end
 
     def create_endpoint(subscription_uuid, payload = {})
@@ -54,8 +54,8 @@ module HostedHooks
 
     # Webhook Events
 
-    def list_webhook_events(app_uuid)
-      get_response("/apps/#{app_uuid}/webhook_events")
+    def list_webhook_events(app_uuid, params = {})
+      get_response("/apps/#{app_uuid}/webhook_events", params.slice(:page, :per_page, :offset))
     end
 
     # Messages
@@ -72,14 +72,28 @@ module HostedHooks
       post_response "/subscriptions/#{subscription_uuid}/endpoints/#{endpoint_uuid}/messages", payload.slice(:event_type, :data, :version, :event_id, :override_payload)
     end
 
+    # Webhook Attempts
+
+    def get_webhook_attempt(app_uuid, webhook_attempt_uuid)
+      get_response("/apps/#{app_uuid}/webhook_attempts/#{webhook_attempt_uuid}")
+    end
+
+    def list_webhook_attempts(app_uuid, params = {})
+      get_response("/apps/#{app_uuid}/webhook_attempts", params.slice(:page, :per_page, :offset))
+    end
+
     private
 
-    HOSTEDHOOKS_API_ENDPOINT = "https://hostedhooks.com/api/v1"
+    # HOSTEDHOOKS_API_ENDPOINT = "https://hostedhooks.com/api/v1"
+    HOSTEDHOOKS_API_ENDPOINT = "http://localhost:7891/api/v1"
 
-    def get_response(url)
-    	response = HTTParty.get("#{HOSTEDHOOKS_API_ENDPOINT}#{url}", timeout: 3, headers: { 'Authorization' => "Bearer #{@api_key}" })
+    def get_response(url, params=nil)
+      if params
+        pagination_query = "?#{params.to_query}"
+      end
+    	response = HTTParty.get("#{HOSTEDHOOKS_API_ENDPOINT}#{url}#{pagination_query || ''}", timeout: 3, headers: { 'Authorization' => "Bearer #{@api_key}" })
       body = JSON.parse(response.body)
-      return {"error" => body['message'], "code" => response.code} if response.code >= 400
+      return {"error" => body['error'], "code" => response.code} if response.code >= 400
       return body
     end
 
@@ -93,7 +107,7 @@ module HostedHooks
     		}
     	)
       body = JSON.parse(response.body)
-    	return {"error" => body['message'], "code" => response.code} if response.code >= 400
+    	return {"error" => body['error'], "code" => response.code} if response.code >= 400
     	return body
     end
 
@@ -107,7 +121,7 @@ module HostedHooks
     		}
     	)
       body = JSON.parse(response.body)
-      return {"error" => body['message'], "code" => response.code} if response.code >= 400
+      return {"error" => body['error'], "code" => response.code} if response.code >= 400
       return body
     end
 
