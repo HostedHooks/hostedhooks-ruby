@@ -30,9 +30,7 @@ Initialize the gem with your API key that is [found here](https://www.hostedhook
 
     client.get_endpoint("endpoint_uuid")
 
-
 ### Get a collection of records
-
 
     client.list_subscriptions("app_uuid")
 
@@ -46,13 +44,12 @@ Initialize the gem with your API key that is [found here](https://www.hostedhook
 
 
 ## Resources
-
-* Apps
-* Subscriptions
-* Endpoints
-* Webhook Events
-* Messages
-* Webhook Attempts
+* [Apps](https://developer.hostedhooks.com/#apps)
+* [Subscriptions](https://developer.hostedhooks.com/#subscriptions)
+* [Endpoints](https://developer.hostedhooks.com/#endpoints)
+* [Webhook Events](https://developer.hostedhooks.com/#webhook-events)
+* [Messages](https://developer.hostedhooks.com/#messages)
+* [Webhook Attempts](https://developer.hostedhooks.com/#webhook-attempts)
 
 
 ## Contributing
