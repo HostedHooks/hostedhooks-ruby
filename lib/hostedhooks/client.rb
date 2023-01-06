@@ -84,8 +84,7 @@ module HostedHooks
 
     private
 
-    # HOSTEDHOOKS_API_ENDPOINT = "https://hostedhooks.com/api/v1"
-    HOSTEDHOOKS_API_ENDPOINT = "http://localhost:7891/api/v1"
+    HOSTEDHOOKS_API_ENDPOINT = "https://hostedhooks.com/api/v1"
 
     def get_response(url, params=nil)
       if params
