@@ -82,6 +82,24 @@ module HostedHooks
       get_response("/apps/#{app_uuid}/webhook_attempts", params.slice(:page, :per_page, :offset))
     end
 
+    # HookHelpers
+
+    def list_hook_helpers(params = {})
+      get_response("/hook_helpers", params.slice(:page, :per_page, :offset))
+    end
+
+    def get_hook_helper(hook_helper_uuid, params = {})
+      get_response("/hook_helpers/#{hook_helper_uuid}", params.slice(:page, :per_page, :offset))
+    end 
+
+    def create_hook_helper(payload = {})
+      post_response "/hook_helpers", payload.slice(:label)
+    end 
+
+    def update_hook_helper(hook_helper_uuid, payload = {})
+      patch_response "/hook_helpers/#{hook_helper_uuid}", payload.slice(:label, :endpoint_id) 
+    end
+
     private
 
     HOSTEDHOOKS_API_ENDPOINT = "https://hostedhooks.com/api/v1"
