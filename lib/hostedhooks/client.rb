@@ -44,6 +44,10 @@ module HostedHooks
       get_response("/apps/#{app_uuid}/endpoints", params.slice(:page, :per_page, :offset))
     end
 
+    def list_subscription_endpoints(subscription_uuid, params = {})
+      get_response("/subscriptions/#{subscription_uuid}/endpoints", params.slice(:page, :per_page, :offset))
+    end
+
     def create_endpoint(subscription_uuid, payload = {})
       post_response "/subscriptions/#{subscription_uuid}/endpoints", payload.slice(:url, :enabled_events, :version, :status, :description)
     end
